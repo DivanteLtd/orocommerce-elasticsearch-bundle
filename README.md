@@ -56,7 +56,9 @@ divante_elasticsearch:
 
 ## Screenshots
 
+(https://raw.githubusercontent.com/DivanteLtd/orocommerce-elasticsearch-bundle/develop/Resources/doc/autocomplete.png)
 
+(https://raw.githubusercontent.com/DivanteLtd/orocommerce-elasticsearch-bundle/develop/Resources/doc/search.png)
 
 ## Contributing
 
