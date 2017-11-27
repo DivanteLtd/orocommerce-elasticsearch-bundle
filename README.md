@@ -4,10 +4,12 @@ Divante Elasticsearch Bundle is a bundle for Oro Commerce which enables using El
 **Table of Contents**
 
 - [Divante Elasticsearch Bundle for Oro Commerce](#)
+	- [Features](#)
 	- [Compatibility](#)
 	- [Installing/Getting started](#)
 	- [Configuration](#)
 	- [Contributing](#)
+	- [Screenshots](#)
 	- [Licensing](#)
 	- [Standards & Code Quality](#)
 	- [About Authors](#)
@@ -56,9 +58,9 @@ divante_elasticsearch:
 
 ## Screenshots
 
-(https://raw.githubusercontent.com/DivanteLtd/orocommerce-elasticsearch-bundle/develop/Resources/doc/autocomplete.png)
+![Autocomplete](https://raw.githubusercontent.com/DivanteLtd/orocommerce-elasticsearch-bundle/develop/Resources/doc/autocomplete.png)
 
-(https://raw.githubusercontent.com/DivanteLtd/orocommerce-elasticsearch-bundle/develop/Resources/doc/search.png)
+![Result list](https://raw.githubusercontent.com/DivanteLtd/orocommerce-elasticsearch-bundle/develop/Resources/doc/search.png)
 
 ## Contributing
 
