@@ -44,7 +44,7 @@ class ElasticsearchExpressionVisitorTest extends \PHPUnit_Framework_TestCase
         $actual = $visitor->dispatch($criteria->getWhereExpression());
 
         $bool = new BoolQuery();
-        $bool->addMust(new Match('test.polish_special_letters_analyzer', 'aaa'));
+        $bool->addMust(new Match('test', 'aaa'));
         $bool->addFilter(new Term(['visibility_anonymous' => 1]));
 
         $this->assertEquals($bool, $actual);
