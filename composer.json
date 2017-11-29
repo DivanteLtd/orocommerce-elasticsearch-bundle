@@ -1,5 +1,5 @@
 {
-  "name": "divante-ltd/elasticsearch-bundle",
+  "name": "divante-ltd/orocommerce-elasticsearch-bundle",
   "description": "Elasticsearch Bundle for Oro Commerce",
   "type": "orocommerce-module",
   "license": "MIT",
