@@ -1,0 +1,2 @@
+bundles:
+  - { name: Divante\Bundle\ElasticsearchBundle\DivanteElasticsearchBundle , priority: 1000 }

@@ -1,0 +1,67 @@
+parameters:
+    divante_elasticsearch.engine.elasticsearch_expression_visitor.class: 'Divante\Bundle\ElasticsearchBundle\Engine\ElasticsearchExpressionVisitor'
+    oro_website_search.indexer.class: 'Divante\Bundle\ElasticsearchBundle\Engine\ElasticsearchIndexer'
+    oro_website_search.engine.class: 'Divante\Bundle\ElasticsearchBundle\Engine\ElasticsearchEngine'
+    oro_website_search.driver.customer_partial_update_driver.class: 'Divante\Bundle\ElasticsearchBundle\Driver\CustomerPartialUpdateDriver'
+    divante_elasticsearch.client.class: 'Divante\Bundle\ElasticsearchBundle\Elastica\Client'
+    divante_elasticsearch.logger.class: 'Divante\Bundle\ElasticsearchBundle\Elastica\Logger'
+
+
+services:
+    divante_elasticsearch.logger:
+        class: '%divante_elasticsearch.logger.class%'
+        arguments:
+            - '@?logger'
+            - '%kernel.debug%'
+        tags:
+            - { name: monolog.logger, channel: elastica }
+
+    divante_elasticsearch.elastica:
+        class: '%divante_elasticsearch.client.class%'
+        arguments: [{ host: '%elasticsearch_host%', port: '%elasticsearch_port%' }]
+        calls:
+            - [setStopwatch, ['@?debug.stopwatch']]
+            - [setLogger, ['@divante_elasticsearch.logger']]
+
+    divante_elasticsearch.index:
+        class: 'Elastica\Index'
+        factory: 'divante_elasticsearch.elastica:getIndex'
+        arguments: ['%divante_elasticsearch.index.name%']
+
+    divante_elasticsearch.data_collector:
+        class: 'Divante\Bundle\ElasticsearchBundle\DataCollector\ElasticaDataCollector'
+        arguments: ['@divante_elasticsearch.logger']
+        tags:
+            - { name: data_collector, id: elastica, template: 'DivanteElasticsearchBundle:Collector:elastica' }
+
+    divante_elasticsearch.engine.elasticsearch_expression_visitor:
+        class: '%divante_elasticsearch.engine.elasticsearch_expression_visitor.class%'
+
+    oro_website_search.indexer:
+        class: '%oro_website_search.indexer.class%'
+        parent: 'oro_website_search.search.indexer'
+        calls:
+            - [setClient, ['@divante_elasticsearch.elastica']]
+            - [setEventDispatcher, ['@event_dispatcher']]
+            - [setIndexName, ['%divante_elasticsearch.index.name']]
+
+    oro_website_search.engine:
+        class: '%oro_website_search.engine.class%'
+        parent: 'oro_website_search.search.engine'
+        calls:
+            - [setClient, ['@divante_elasticsearch.elastica']]
+            - [setIndex, ['@divante_elasticsearch.index']]
+            - [setMapper, ['@oro_website_search.engine.mapper']]
+            - [setExpressionVisitor, ['@divante_elasticsearch.engine.elasticsearch_expression_visitor']]
+
+    oro_website_search.driver.customer_partial_update_driver:
+        class: '%oro_website_search.driver.customer_partial_update_driver.class%'
+        arguments:
+            - '@oro_website_search.provider.placeholder_provider'
+            - '@oro_visibility.visibility.provider.product_visibility_provider'
+            - '@oro_entity.doctrine_helper'
+            - '@oro_entity.orm.insert_from_select_query_executor'
+        calls:
+            - [setClient, ['@divante_elasticsearch.elastica']]
+            - [setIndex, ['@divante_elasticsearch.index']]
+            - [setType, ['%divante_elasticsearch.type.name%']]
