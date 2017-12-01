@@ -1,5 +1,5 @@
 # Divante Elasticsearch Bundle for Oro Commerce
-Divante Elasticsearch Bundle is a bundle for Oro Commerce which enables using Elasticsearch as search engine. It allows to quickly search through massive volume of data. With Divante Elasticsearch Bundle you can run an ecommerce website with hundreds of thousands products. 
+Divante Elasticsearch Bundle is a bundle for Oro Commerce which enables using Elasticsearch as search engine. It allows to quickly search through massive volume of data. With Divante Elasticsearch Bundle you can run an ecommerce website with hundreds of thousands products.
 
 **Table of Contents**
 
@@ -26,14 +26,14 @@ This module is compatible with Oro Commerce 1.3
 
 1. Install the bundle
     ```
-    composer require divanteltd/orocommerce-elasticsearch-bundle
+    composer require divante-ltd/orocommerce-elasticsearch-bundle
     ```
 1. Add to `app/config/config.yml`
-    
+
     ```
     oro_website_search:
         engine: 'elasticsearch'
-    
+
     divante_elasticsearch:
         index: oro
     ```
@@ -42,11 +42,11 @@ This module is compatible with Oro Commerce 1.3
     ```
     rm -rf app/cache/{dev,prod}
     ```
-1. Reindex 
+1. Reindex
     ```
     app/console oro:website-search:reindex
     ```
-    
+
 ## Configuration
 
 ### Index name
